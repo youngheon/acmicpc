@@ -22,21 +22,30 @@ public class Main {
 	}
 	
 	public int minReturn(int [] array){
+		int min = 0;
 		
+		for(int i=0;i<array.length-1;i++){
+			if(array[i] < array[i+1]){
+				min = array[i];
+			}else{
+				min = array[i+1];
+			}
+		}
 		
-		return 0;
+		return min;
 	}
 	
 	public static void main(String [] args){
 		Scanner sc = new Scanner(System.in);
 		int caseTest = sc.nextInt();
-		String str = sc.next();
+		String str = sc.next().trim();
 		String [] str2 = str.split("\\s+");
 		System.out.println(str2.length);
-		int [] array = new int[caseTest];
-		for(int i=0;i<str2.length;i++){
-			array[i] = Integer.parseInt(str2[i]);
-		}
+		
+//		int [] array = new int[caseTest];
+//		for(int i=0;i<str2.length;i++){
+//			array[i] = Integer.parseInt(str2[i]);
+//		}
 	}
 
 }
