@@ -1,35 +1,23 @@
 package _1206_10818;
 
-import java.util.Collection;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
 	
 	static public int maxReturn(int [] array){
-		int max=0;
-		
-		for(int i=0;i<array.length-1;i++){
-			if(array[i] > array[i+1]){
-				max = array[i];
-			}else{
-				max = array[i+1];
-			}
+		int max=Integer.MIN_VALUE;
+		for(int i=0;i<array.length;i++){
+			if(array[i]>max) max = array[i];
 		}
-		
-		
 		return max;
 	}
 	
-	public int minReturn(int [] array){
-		int min = 0;
+	static public int minReturn(int [] array){
+		int min = Integer.MAX_VALUE;
+		for(int i=0;i<array.length;i++){
+			if(array[i]<min) min = array[i];
 		
-		for(int i=0;i<array.length-1;i++){
-			if(array[i] < array[i+1]){
-				min = array[i];
-			}else{
-				min = array[i+1];
-			}
 		}
 		
 		return min;
@@ -38,14 +26,16 @@ public class Main {
 	public static void main(String [] args){
 		Scanner sc = new Scanner(System.in);
 		int caseTest = sc.nextInt();
-		String str = sc.next().trim();
-		String [] str2 = str.split("\\s+");
-		System.out.println(str2.length);
 		
-//		int [] array = new int[caseTest];
-//		for(int i=0;i<str2.length;i++){
-//			array[i] = Integer.parseInt(str2[i]);
-//		}
+		int [] array = new int[caseTest];
+		//String str = "20 10 20";
+	    for (int i=0;i<caseTest;i++)
+	    	array[i]=sc.nextInt();
+	    
+//	    Arrays.sort(array);
+	    System.out.print(minReturn(array)+" "+maxReturn(array));
+		
+
 	}
 
 }
