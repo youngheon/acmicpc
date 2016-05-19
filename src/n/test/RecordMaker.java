@@ -7,7 +7,8 @@ import java.util.Iterator;
 import java.util.Scanner;
 
 public class RecordMaker {
-	
+	 
+	final String companyShortName = "NT";
 	private HashSet<personVo> hs = new HashSet<personVo>();
 	
 	class personVo{
@@ -15,7 +16,7 @@ public class RecordMaker {
 		private int personValue;
 		
 		public personVo(int personNo, int personValue){
-			this.personNo = "NT"+formatter(personNo);
+			this.personNo = formatter(personNo);
 			this.personValue = personValue;
 		}
 		public String getPersonNo() {
@@ -38,6 +39,7 @@ public class RecordMaker {
 			personVo vo = (personVo)obj;
 			return personNo.equals(vo.personNo);
 		}
+		
 		@Override
 		public String toString(){
 			return personNo+" "+personValue;
@@ -64,13 +66,18 @@ public class RecordMaker {
 	
 	//Change Format
 	public String formatter(int personNo){
-		return new DecimalFormat("00000").format(personNo);
+		
+		String result=companyShortName;
+		for(int i=0; i<5-(""+personNo).length();i++){
+			result+="0";
+		}
+		result+=personNo;
+		return result;
 	}
 	
 	//Input by keyboard
-	@SuppressWarnings("resource")
-	public void inputCount() throws InputMismatchException{
-		setCount(new Scanner(System.in).nextInt());
+	public void inputCount(String args) throws NumberFormatException{
+		setCount(Integer.parseInt(args));
 	}
 	
 	//Add HashSet
@@ -78,9 +85,6 @@ public class RecordMaker {
 		for(int i=0; i<getCount();i++){
 			hs.add(new personVo(createNo(false),createNo(true)));
 		}
-		//error genertater
-		//hs.add(new personVo(12345,30));
-		//hs.add(new personVo(12345,40));
 	}
 	
 	//print
@@ -94,11 +98,13 @@ public class RecordMaker {
 	public static void main(String[] args){
 		RecordMaker rm = new RecordMaker();
 		try {
-			rm.inputCount();
+			rm.inputCount(args[0]);
 			rm.setList();
 			rm.getList();
-		} catch (InputMismatchException e) {
-			System.out.println("input error");
+		} catch (NumberFormatException e) {
+			System.out.println("Error input Type");
+		} catch (ArrayIndexOutOfBoundsException e){
+			System.out.println("Not Keboard input");
 		}
 	}
 }
