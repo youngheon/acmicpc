@@ -1,16 +1,14 @@
 package n.test;
 
-import java.text.DecimalFormat;
 import java.util.HashSet;
-import java.util.InputMismatchException;
 import java.util.Iterator;
-import java.util.Scanner;
 
 public class RecordMaker {
 	 
 	final String companyShortName = "NT";
 	private HashSet<personVo> hs = new HashSet<personVo>();
 	
+	//DAO || VO
 	class personVo{
 		private String personNo;
 		private int personValue;
@@ -35,7 +33,7 @@ public class RecordMaker {
 			if(!(obj instanceof personVo)){
 				return false;
 			}
-			hs.add(new personVo(createNo(false),createNo(true)));
+			hs.add(new personVo(createNo(5),createNo(2)));
 			personVo vo = (personVo)obj;
 			return personNo.equals(vo.personNo);
 		}
@@ -46,7 +44,7 @@ public class RecordMaker {
 		}
 	}
 	
-	// Create create Count
+	// Create create inputCount
 	private int count;
 	public int getCount(){
 		return this.count;
@@ -56,8 +54,8 @@ public class RecordMaker {
 	}
 	
 	//Create Random Numeric
-	public int createNo(boolean type){
-		if(type==false){  //personNo
+	public int createNo(int digit){
+		if(digit==5){  //personNo
 			return (int)(Math.random()*100000+1);			
 		}else{ //personValue
 			return (int)(Math.random()*100);
@@ -83,7 +81,7 @@ public class RecordMaker {
 	//Add HashSet
 	public void setList(){
 		for(int i=0; i<getCount();i++){
-			hs.add(new personVo(createNo(false),createNo(true)));
+			hs.add(new personVo(createNo(5),createNo(2)));
 		}
 	}
 	
@@ -95,16 +93,21 @@ public class RecordMaker {
 		}
 	}
 	
+	public void run(String args){
+		inputCount(args);
+		setList();
+		getList();
+	}
+	
 	public static void main(String[] args){
-		RecordMaker rm = new RecordMaker();
 		try {
-			rm.inputCount(args[0]);
-			rm.setList();
-			rm.getList();
+			new RecordMaker().run(args[0]);
 		} catch (NumberFormatException e) {
-			System.out.println("Error input Type");
+			System.out.println("숫자형식으로 입력이 필요합니다.");
 		} catch (ArrayIndexOutOfBoundsException e){
-			System.out.println("Not Keboard input");
+			System.out.println("실행인자 값 입력이 없습니다.");
+		} catch (Exception e){
+			System.out.println("에러가 발생하였습니다.");
 		}
 	}
 }
